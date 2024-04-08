@@ -1,9 +1,32 @@
 // 2. URL Parameter: please get id from URL
+const paramstring =window.location.search;
+const searchparams = new URLSearchParams(paramstring);
+const value = searchparams.get('id');
 let id = 1;
-let url = ""; // please use a url from single pen from API document
+let url = "https://pens-api.vercel.app/api/pens/1"; // please use a url from single pen from API document
 
 async function getPen() {
   // Fetch pen colors from API
+  fetch("https://pens-api.vercel.app/api/pens")
+  .then((response) => {    
+    if (!response.ok) {     
+    throw new Error("Network response was not ok");     
+      }  
+    return response.json();    
+     })    
+    .then((pens) => {
+      document.getElementById('single-pen');    
+      for(let i=0; i< pens.length; i++) {            
+        if(pens[i].value === id){}
+    }
+  } )   
+        .catch((error) => {   
+          console.error("Fetch error:", error);    
+            return error;     
+        });
+    }       
+  
+  getPen()
   try {
     const response = await fetch(url);
     const pen = await response.json();
@@ -17,7 +40,7 @@ async function getPen() {
   } catch (error) {
     console.error(`Get pen error: ${error.message}`);
   }
-}
+
 
 // 3. Local Storage : Save data to localStorage
 function saveLocalStorageData(pen) {

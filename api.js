@@ -28,6 +28,22 @@ function createPenElement(pen) {
 function getAllPens() {
   // Fetch pen colors from API
   //1. API : Replace pens data by fetching from API
+  fetch("https://pens-api.vercel.app/api/pens")     
+    .then((response) => {     
+      if (!response.ok) {      
+        throw new Error("Network response was not ok");        
+      }   
+      return response.json();      
+    })     
+    .then((pens) => {         
+      const card = document.getElementById('pen-list');            
+        })        
+          .catch((error) => {         
+            console.error("Fetch error:", error);
+            return error;
+      });
+  }
+      getAllPens();
   let pens = [
     { id: 1, name: "Pen 1", color: "red" },
     { id: 2, name: "Pen 2", color: "blue" },
@@ -46,6 +62,6 @@ function getAllPens() {
     const penElement = createPenElement(pen);
     penListDiv.appendChild(penElement);
   });
-}
+
 
 getAllPens();
